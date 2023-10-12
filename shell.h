@@ -10,6 +10,6 @@ size_t my_getline(char **lineptr, size_t *n);
 int setenv_shell(const char *name, const char *value, int overwrite);
 int unsetenv_shell(const char *name);
 int cd_shell(const char *directory); // New prototype for cd
-
+int execute_command(const char *command)
 #endif /* SHELL_H */
 
