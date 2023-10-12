@@ -11,5 +11,6 @@ int setenv_shell(const char *name, const char *value, int overwrite);
 int unsetenv_shell(const char *name);
 int cd_shell(const char *directory); // New prototype for cd
 int execute_command(const char *command)
+void execute_multiple_commands(char *commands)
 #endif /* SHELL_H */
 
