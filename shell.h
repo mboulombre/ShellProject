@@ -14,5 +14,6 @@ int execute_command(const char *command)
 void execute_multiple_commands(char *commands)
 int execute_command_and(const char *command)
 int execute_command_or(const char *command)
+char *expand_variables(const char *input)
 #endif /* SHELL_H */
 
