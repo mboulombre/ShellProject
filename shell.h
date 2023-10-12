@@ -13,5 +13,6 @@ int cd_shell(const char *directory); // New prototype for cd
 int execute_command(const char *command)
 void execute_multiple_commands(char *commands)
 int execute_command_and(const char *command)
+int execute_command_or(const char *command)
 #endif /* SHELL_H */
 
