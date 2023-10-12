@@ -6,6 +6,7 @@ void run_shell();
 int check_command_in_path(char *command);
 void exit_shell(int status);
 void print_environment();
+ssize_t my_getline(char **lineptr, size_t *n)
 size_t my_getline(char **lineptr, size_t *n);
 int setenv_shell(const char *name, const char *value, int overwrite);
 int unsetenv_shell(const char *name);

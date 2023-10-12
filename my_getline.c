@@ -6,54 +6,21 @@
 #include <sys/wait.h>
 #include "shell.h"
 
-size_t my_getline(char **lineptr, size_t *n)
-{
-    static char buffer[INITIAL_BUFFER_SIZE];
-    static size_t buffer_size = INITIAL_BUFFER_SIZE;
-    static size_t buffer_position = 0;
-    ssize_t chars_read = 0;
+ssize_t my_getline(char **lineptr, size_t *n) {
+    ssize_t nread;
 
-    if (*n < buffer_size)
-    {
-        *n = buffer_size;
+    if ((nread = getline(lineptr, n, stdin)) == -1) {
+        return -1;
     }
 
-    if (*lineptr == NULL)
-    {
-        *lineptr = malloc(buffer_size);
-        if (*lineptr == NULL)
-        {
-            perror("malloc");
-            exit(EXIT_FAILURE);
+    // Remove comments by replacing # and everything after with a null terminator
+    for (ssize_t i = 0; i < nread; i++) {
+        if ((*lineptr)[i] == '#') {
+            (*lineptr)[i] = '\0';
+            nread = i;
+            break;
         }
     }
 
-    while (1)
-    {
-        char c = getchar();
-        if (c == EOF || c == '\n')
-        {
-            if (chars_read == 0)
-            {
-                return -1; // No more input
-            }
-            (*lineptr)[chars_read] = '\0'; // Null-terminate the line
-            return chars_read;
-        }
-
-        (*lineptr)[chars_read] = c;
-        chars_read++;
-
-        if (chars_read >= buffer_size - 1)
-        {
-            buffer_size *= 2;
-            *lineptr = realloc(*lineptr, buffer_size);
-            if (*lineptr == NULL)
-            {
-                perror("realloc");
-                exit(EXIT_FAILURE);
-            }
-        }
-    }
+    return nread;
 }
-
