@@ -48,6 +48,6 @@ i = 0;
 free(array);
 }
 free(buff);
-return (0)
+return (0);
 }
 
