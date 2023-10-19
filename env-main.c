@@ -1,15 +1,16 @@
 #include <stdio.h>
 
-/**
- * main - prints the environment
- *
- * Return: Always 0.
+
+/*
+ * env-main - function
  *
  */
 
+
+
 int main(int ac, char **av, char **env)
 {
-int i;
+unsigned int i;
 i = 0;
 while (env[i] != NULL)
 {
