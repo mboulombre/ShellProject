@@ -1,53 +1,46 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 #include <string.h>
+#include "shell.h"
 
-int main(void)
+void shell_loop(int ac, char **av, char **env) 
 {
-size_t buff_size = 0;
-char *buff = NULL;
-char *token;
-int status, i = 0;
-char **array;
-pid_t child_pid;
-while (1)
+
+char *line;
+char **args;
+char *path;
+int status;
+
+do {
+printf("> ");
+line = read_line();
+args = split_line(line);
+if (args[0] == NULL)
 {
-write(1, "#cisfun$ ", 9);
-getline(&buff, &buff_size, stdin);
-token = strtok(buff, " \t\n");
-array = (char **)malloc(sizeof(char *) * 1024);
-while (token)
-{
-array[i] = token;
-token = strtok(NULL, " \t\n");
-i++;
+continue;
+
 }
-array[i] = NULL;
-child_pid = fork();
-if (child_pid == -1)
+if (strcmp(args[0], ENV) == 0)
 {
-perror("Fork failed");
-exit(EXIT_FAILURE);
-}
-else if (child_pid == 0)
-{
-if (execvp(array[0], array) == -1)
-{
-perror("Error");
-exit(EXIT_FAILURE);
-}
+status = shell_env(args, env);
 }
 else
 {
-wait(&status);
+path = find_path(args, env);
+if (path)
+{
+status = execute(args, env);
 }
-i = 0;
-free(array);
+else
+{
+
+printf("Command not found\n");
+status = 1;
 }
-free(buff);
-return (0);
+
+}  
+free(line);
+free(args);
+} while (status);
 }
+
 
