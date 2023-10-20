@@ -1,2 +1,2 @@
 # ShellProject
-simple shell project ALX
+Simple Shell Project ALX
