@@ -5,7 +5,7 @@ void set_alias(char *var_name, char *value);
 void print_alias(alias_t *alias);
 
 /**
- * shellby_alias - Builtin command that either prints all aliases, specific
+ * shellby_alias - Builtin command that either prints all the aliases, specific
  * aliases, or sets an alias.
  * @args: An array of arguments.
  * @front: A double pointer to the beginning of args.
@@ -53,9 +53,9 @@ int shellby_alias(char **args, char __attribute__((__unused__)) **front)
 }
 
 /**
- * set_alias - Will either set an existing alias 'name' with a new value,
+ * set_alias - This will either set an existing alias 'name' with a new value,
  * 'value' or creates a new alias with 'name' and 'value'.
- * @var_name: Name of the alias.
+ * @var_name: The name of the alias.
  * @value: Value of the alias. First character is a '='.
  */
 void set_alias(char *var_name, char *value)
